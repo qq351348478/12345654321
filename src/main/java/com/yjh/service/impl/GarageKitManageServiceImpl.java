@@ -5,6 +5,7 @@ import com.yjh.mapper.GarageKitManageMapper;
 import com.yjh.pojo.GarageKit;
 import com.yjh.service.GarageKitManageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 
@@ -14,6 +15,7 @@ public class GarageKitManageServiceImpl implements GarageKitManageService {
     private GarageKitManageMapper garageKitManageMapper;
 
     @Override
+    @PreAuthorize("hasAnyAuthority('sys:all')")
     public ResponseResult addGarageKit(GarageKit garageKit) {
         Integer integer = garageKitManageMapper.insertGarageKit(garageKit);
         if(integer==0){
@@ -22,6 +24,7 @@ public class GarageKitManageServiceImpl implements GarageKitManageService {
         return new ResponseResult(200,"添加手办成功！");
     }
 
+    @PreAuthorize("hasAnyAuthority('sys:all')")
     @Override
     public ResponseResult changeGarageKit(GarageKit garageKit,Long id) {
         garageKit.setId(id);
@@ -31,7 +34,7 @@ public class GarageKitManageServiceImpl implements GarageKitManageService {
         }
         return new ResponseResult(200,"更新手办成功！");
     }
-
+    @PreAuthorize("hasAnyAuthority('sys:all')")
     @Override
     public ResponseResult deleteGarageKit(Long id) {
         Integer integer = garageKitManageMapper.deleteGarageKitById(id);
